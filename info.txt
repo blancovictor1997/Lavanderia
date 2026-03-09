@@ -1,0 +1,3 @@
+usuario: delacruz 
+correo: delacruzlavanderia@gmail.com
+clave: delacruz2025

@@ -1,0 +1,75 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+  
+<div>
+  <div class="row" style="display: flex;  align-items: center;">
+    <div class="col-sm-9 mb-3">
+      <h1>Registrar lavado y secado de pecheras</h1>
+      <Spam>Agregar un nuevo ciclo de lavado y secado de pechera al sistema</Spam>
+    </div>
+
+    <div class="col-sm-3 mb-3" >   
+      <form method="post" action="{% url 'leer_lavado' %}" style="display: flex">
+        {% csrf_token %}                      
+        <input type="text" id="codigo" name="codigo" class="form-control" autofocus>
+        <button type="submit" class="btn btn-primary btn-block" style="flex: 1 0 25%; margin-left: 10px; ">
+          <span class="fa fa-search" aria-hidden="true"></span>
+        </button>         
+      </form> 
+    </div>
+    
+  </div><br>
+
+  {% if alerta %}
+  <div class="alert alert-warning" role="alert">
+    {{alerta}}
+  </div>
+  {% endif %}
+
+
+  <div class="row">
+    <div class="col-sm-12 mb-8">
+      <div class="card" >
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><div class="row"><div class="col-sm"><b>Identificador:</b></div><div class="col-sm">{{ pechera.id_pechera }}</div></div></li>
+          <li class="list-group-item"><div class="row"><div class="col-sm"><b>Planta:</b></div><div class="col-sm">{{ pechera.get_planta_display }}</div></div></li>
+          <li class="list-group-item"><div class="row"><div class="col-sm"><b>Fecha de fabricación:</b></div><div class="col-sm">{{ pechera.fecha_fabricacion }}</div></div></li>
+          <li class="list-group-item"><div class="row"><div class="col-sm"><b>Cantidad de Lavados:</b></div><div class="col-sm">{{ pechera.cantidad_lavados }}</div></div></li>
+          <li class="list-group-item"><div class="row"><div class="col-sm"><b>Talla:</b></div><div class="col-sm">{{ pechera.talla }}</div></div></li>
+          <li class="list-group-item"><div class="row"><div class="col-sm"><b>Parámetros:</b></div><div class="col-sm">{{ pechera.get_parameters_display }}</div></div></li>
+          <li class="list-group-item"><div class="row"><div class="col-sm"><b>Observaciones:</b></div><div class="col-sm">{{ pechera.observaciones }}</div></div></li>
+          <li class="list-group-item"><div class="row"><div class="col-sm"><b>Índice Microbiológico:</b></div><div class="col-sm">{{ pechera.indice_microbiologico }}</div></div></li>
+        </ul>
+      </div>
+      {% if pechera %}   
+      <form method="post" action="{% url 'registrar_lavado' %}" id="formulario"><br>
+          {% csrf_token %}  
+          <input type="hidden" id="id_pechera" name="id_pechera" value="{{pechera.id_pechera}}"> 
+          <input type="hidden" id="lavados" name="lavados" value="{{pechera.cantidad_lavados}}"> 
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Registrar Lavado</button>     
+      </form>     
+      {% endif %}  
+    </div>
+  </div><br>
+
+  <script>
+    var miBoton = document.getElementById('leyendo');
+    var icono1 = document.getElementById("off");
+    var icono2 = document.getElementById("on");
+  
+    miBoton.addEventListener('click', function() {
+        miBoton.textContent = 'Leyendo información...';
+        icono1.style.display ="none";
+        icono2.style.display ="block";
+    });
+  </script>
+
+</div>
+
+{% endblock %}
+
+

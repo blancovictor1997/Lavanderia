@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<div>
+  <div class="row" style="display: flex;  align-items: center;">
+    <div class="col-sm-10 mb-3">
+      <h1>Listado de plantas de procesado</h1>
+      <Spam>Tabla con información relevante sobre los clientes</Spam>
+    </div>
+    <div class="col-sm-2 mb-3">
+    </div>
+  </div><br> 
+   
+  <div class="card mb-4">    
+    <div class="card-body">
+      <table class="table table-responsive-sm table-fluid">
+        <thead>
+          <tr>
+            <th>Nombre Planta</th>
+            <th>Cantidad de Pecheras</th>
+            <th>Cantidad de Plástico</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for planta in plantas %}
+          {% if planta.id_planta != 1 %}
+            <tr>
+              <td>{{ planta.nombre }}</td>
+              <td>{{ planta.cantidad }}</td>
+              <td>{{ planta.kilos }} Kg</td>
+            </tr>
+          {% endif %}
+          {% endfor %} 
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+  {% endblock %}
+</div>
+
+
